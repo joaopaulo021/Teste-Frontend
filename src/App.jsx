@@ -1,34 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {RouterProvider, createBrowserRouter} from 'react-router-dom';
+import {Home, Hero} from './pages'
+import {loader as heroLoader} from './pages/Hero'
+import {loader as searchLoader} from './components/SearchForm/index'
+import {ToastContainer} from 'react-toastify';
+import {QueryClient, QueryClientProvider} from 'react-query';
+import {FavoritesProvider} from '../src/context/FavoriteContext';
 
-function App() {
-  const [count, setCount] = useState(0)
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+    },
+  },
+})
 
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Home />,
+    loader: searchLoader,
+  },
+  {
+    path: '/hero/:id',
+    element: <Hero />,
+    loader: heroLoader,
+  }
+])
+
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <FavoritesProvider>
+      <QueryClientProvider client={queryClient}>
+        <ToastContainer position='top-center' />
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </FavoritesProvider>
   )
 }
 
