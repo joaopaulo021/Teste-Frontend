@@ -1,7 +1,7 @@
 import axios from 'axios';
 import md5 from 'md5';
 import {useEffect} from 'react';
-import {useLoaderData, useNavigate} from 'react-router-dom';
+import {Link, useLoaderData, useNavigate} from 'react-router-dom';
 import {useQuery} from 'react-query';
 import rateFill from '../assets/review/Path@2x.png';
 import rateEmpty from '../assets/review/Path Copy 6@2x.png';
@@ -90,6 +90,9 @@ const Hero = () => {
           <div className="search">
             <SearchForm color={searchFormColor} />
           </div>
+          <Link to='/'>
+            Home
+          </Link>
         </div>
       </Navbar>
 
