@@ -17,7 +17,7 @@ import fillHeart from '../assets/icones/heart/Path Copy 7@2x.png'
 import {useFavorites} from '../context/FavoriteContext';
 
 // CONSTANTES PARA A API DA MARVEL
-const MARVEL_API_URL = 'http://gateway.marvel.com/v1/public/characters?';
+const MARVEL_API_URL = 'https://gateway.marvel.com/v1/public/characters?';
 const TIME = Number(new Date());
 const HASH = md5(`${TIME}${import.meta.env.VITE_PRIVATE_KEY}${import.meta.env.VITE_PUBLIC_KEY}`);
 const LIMIT = 20;
